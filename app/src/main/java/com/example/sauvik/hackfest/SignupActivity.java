@@ -33,7 +33,7 @@ public class SignupActivity extends AppCompatActivity {
     private static final String TAG = "SignupActivity";
 
     // TODO: Remember to provide Correct Url here.
-    private static final String REGISTER_URL = "http://172.16.40.204/Hackfest/php_files/signup_entry.php";
+    private static final String REGISTER_URL = "http://192.168.43.78/Hackfest/php_files/signup_entry.php";
 
     public static final String KEY_USERNAME = "name";
     public static final String KEY_PASSWORD = "password";

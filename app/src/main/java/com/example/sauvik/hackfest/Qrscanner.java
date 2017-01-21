@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.zxing.Result;
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
@@ -22,6 +23,7 @@ public class Qrscanner extends Activity implements ZXingScannerView.ResultHandle
         super.onCreate(state);
         mScannerView = new ZXingScannerView(this);   // Programmatically initialize the scanner view
         setContentView(mScannerView);                // Set the scanner view as the content view
+
     }
 
     @Override

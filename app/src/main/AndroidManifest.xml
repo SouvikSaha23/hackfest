@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
 
     <application
         android:allowBackup="true"
@@ -30,8 +31,15 @@
         <activity
             android:name=".CartActivity"
             android:theme="@style/AppTheme1" />
-        <activity android:name=".Qrscanner" />
-        <activity android:name=".SelectMall"></activity>
+        <activity
+            android:name=".Qrscanner"
+            android:label="Scan QRCode of the mall:"
+            android:theme="@style/AppTheme1" />
+        <activity android:name=".SelectMall" />
+        <activity android:name=".Payment"></activity>
+        <meta-data
+            android:name="com.razorpay.ApiKey"
+            android:value="rzp_test_njLswIXlPh2ILY" />
     </application>
 
 </manifest>

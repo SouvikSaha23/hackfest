@@ -41,7 +41,7 @@ import java.util.Map;
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
 
-    private static final String REGISTER_URL = "http://172.16.40.204/Hackfest/php_files/login.php";
+    private static final String REGISTER_URL = "http://192.168.43.78/Hackfest/php_files/login.php";
 
     public static final String KEY_EMAIL = "email";
     public static final String KEY_PASSWORD = "password";
@@ -132,12 +132,14 @@ public class LoginActivity extends AppCompatActivity {
         new android.os.Handler().postDelayed(
                 new Runnable() {
                     public void run() {
+
                         // On complete call either onLoginSuccess or onLoginFailed
                         if(c==0) {
+
                             onLoginSuccess();
                         }
                         // onLoginFailed();
-                        progressDialog.dismiss();
+
 
                     }
                 }, 3000);// delay for the authenticating popup box
@@ -158,20 +160,26 @@ public class LoginActivity extends AppCompatActivity {
                     ActivityCompat.requestPermissions(LoginActivity.this,
                             new String[]{Manifest.permission.CAMERA}, CAMERA_PERMISSION);
                 } else {
+                    Toast.makeText(this," 1 Please Scan the QRCode of the mall..........",Toast.LENGTH_LONG).show();
                     startActivityForResult(new Intent(LoginActivity.this,Qrscanner.class),1);
                 }
 
             }
         }
         else{
-            final ProgressDialog loading = ProgressDialog.show(this,"Please Wait","Adding Item to the Cart",false,false);
-            final String code = data.getData().toString();
-            String url = "localhost";
+            final ProgressDialog loading = ProgressDialog.show(this,"Please Wait","Selecting Mall",false,false);
+            final String code = data.getData().toString().trim();
+            String url = "http://192.168.43.78/Hackfest/php_files/return_mall.php";
             StringRequest stringRequest = new StringRequest(Request.Method.POST,url,
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
                             Toast.makeText(LoginActivity.this,response,Toast.LENGTH_LONG).show();
+                            loading.dismiss();
+                            Intent intent=new Intent(LoginActivity.this,CartActivity.class);
+                            intent.putExtra("key",response);
+                            startActivity(intent);
+                            finish();
                         }
                     },
                     new Response.ErrorListener() {
@@ -237,9 +245,9 @@ public class LoginActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(LoginActivity.this,
                     new String[]{Manifest.permission.CAMERA}, CAMERA_PERMISSION);
         } else {
+            Toast.makeText(LoginActivity.this," 2 Please Scan the QRCode of the mall..........",Toast.LENGTH_LONG).show();
             startActivityForResult(new Intent(LoginActivity.this,Qrscanner.class),1);
         }
-
     }
 
     public void onLoginFailed() {
@@ -299,7 +307,7 @@ public class LoginActivity extends AppCompatActivity {
 
         };
 
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        RequestQueue requestQueue = Volley.newRequestQueue(LoginActivity.this);
         requestQueue.add(stringRequest);
     }
     private String md5(String password) {
