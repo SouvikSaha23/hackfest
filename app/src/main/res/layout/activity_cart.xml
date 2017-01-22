@@ -24,7 +24,7 @@
         android:id="@+id/footer"
         android:layout_width="fill_parent"
         android:layout_height="60dp"
-        android:background="#0000FF"
+        android:background="#ee6d6d6e"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true">
 

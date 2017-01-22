@@ -10,7 +10,7 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="android:windowBackground">@drawable/wall</item>
+        <item name="android:windowBackground">@drawable/b</item>
         <item name="colorButtonNormal">@color/colorPrimaryDarker</item>
     </style>
     <style name="AppTheme.Dark" parent="Theme.AppCompat.NoActionBar">

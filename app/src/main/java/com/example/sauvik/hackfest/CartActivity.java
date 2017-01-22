@@ -82,7 +82,7 @@ public class CartActivity extends AppCompatActivity {
             if(resCode == 1){
                 final ProgressDialog loading = ProgressDialog.show(this,"Please Wait","Adding items to cart...",false,false);
                 final String code = data.getData().toString().trim();
-                String url = "http://192.168.43.78/"+server;
+                String url = "http://172.16.40.204/"+server;
                 Toast.makeText(CartActivity.this,url,Toast.LENGTH_LONG).show();
                 StringRequest stringRequest = new StringRequest(Request.Method.POST,url,
                         new Response.Listener<String>() {
@@ -194,13 +194,21 @@ public class CartActivity extends AppCompatActivity {
                     public void onClick(View v) {
                        // Toast.makeText(getContext(), "Button was clicked for list item " + position, Toast.LENGTH_SHORT).show();
                         array.remove(position);
+                        sum=0.0f;
+                        for(int j=0;j<array.size();j++){
+                            sum+=array.get(j).getPrice();
+                        }
+                        TextView t=(TextView) findViewById(R.id.sum);
+                        t.setText("Total: Rs "+String.valueOf(sum));
+                        listView  = (ListView) findViewById(R.id.listvw);
                         listView.setAdapter(adapter = new newAdapter(CartActivity.this,R.layout.adapter_layout,array));
+
                     }
                 });
                 TextView textView = (TextView) convertView.findViewById(R.id.pName);
                 textView.setText(li.getName());
                 TextView t = (TextView) convertView.findViewById(R.id.price);
-                t.setText("Rs: "+String.valueOf(li.getPrice()));
+                t.setText("Rs "+String.valueOf(li.getPrice()));
                 viewHolder.name = textView;
                 convertView.setTag(viewHolder);
             }

@@ -7,8 +7,37 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.sauvik.hackfest.SelectMall">
+    tools:context="com.example.sauvik.hackfest.SelectMall"
+    android:background="@drawable/wall">
 
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Scan"
+        android:id="@+id/btnscan"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:onClick="ScanQr"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Scan the QR Code of the Mall.."
+        android:id="@+id/textView"
+        android:layout_above="@+id/btnscan"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="40dp" />
+
+
+    <ImageView android:src="@drawable/qr"
+        android:layout_width="wrap_content"
+        android:layout_height="72dp"
+        android:layout_marginBottom="24dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/btnscan"
+        android:layout_marginTop="40dp"/>
 
 </RelativeLayout>

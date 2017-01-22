@@ -8,15 +8,15 @@ android:paddingLeft="@dimen/activity_horizontal_margin"
 android:paddingRight="@dimen/activity_horizontal_margin"
 android:paddingTop="@dimen/activity_vertical_margin"
 tools:context="com.example.sauvik.hackfest.Splash"
-android:background="@drawable/mwall">
+android:background="@drawable/kart">
 
 
 <TextView
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:textAppearance="?android:attr/textAppearanceLarge"
-    android:text="Shopping"
-    android:textColor="@color/white"
+    android:text="Shop!t"
+    android:textColor="@color/colorPrimaryDarker"
     android:textStyle="bold"
     android:textSize="40dp"
     android:id="@+id/textView2"
