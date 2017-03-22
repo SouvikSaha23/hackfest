@@ -1,6 +1,7 @@
 package com.example.sauvik.hackfest;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -33,7 +34,7 @@ public class SignupActivity extends AppCompatActivity {
     private static final String TAG = "SignupActivity";
 
     // TODO: Remember to provide Correct Url here.
-    private static final String REGISTER_URL = "http://192.168.43.78/Hackfest/php_files/signup_entry.php";
+    private static final String REGISTER_URL = "http://172.16.40.204/Hackfest/php_files/signup_entry.php";
 
     public static final String KEY_USERNAME = "name";
     public static final String KEY_PASSWORD = "password";
@@ -106,19 +107,28 @@ public class SignupActivity extends AppCompatActivity {
 
         // TODO: Implement your own signup logic here.
         registerUser(); //done signup .
-
+        progressDialog.dismiss();
+/*
         new android.os.Handler().postDelayed(
                 new Runnable() {
                     public void run() {
+                        progressDialog.dismiss();
                         // On complete call either onSignupSuccess or onSignupFailed
                         // depending on success
                         if(c==0) {
                             onSignupSuccess();
+                            Toast.makeText(getBaseContext(), "Successfully Signed Up ", Toast.LENGTH_LONG).show();
+                            Intent i=new Intent(SignupActivity.this,SelectMall.class);
+                            startActivity(i);
+                        }
+                        else{
+                            onSignupFailed();
                         }
                         // onSignupFailed();
-                        progressDialog.dismiss();
+
                     }
                 }, 3000);
+                */
 
 
     }
@@ -127,7 +137,7 @@ public class SignupActivity extends AppCompatActivity {
     public void onSignupSuccess() {
         _signupButton.setEnabled(true);
         setResult(RESULT_OK, null);
-        c=0;
+        //c=0;
         final String email = _emailText.getText().toString().trim();
         final String password = _passwordText.getText().toString().trim();
         SharedPreferences sharedPreferences = SignupActivity.this.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
@@ -141,8 +151,9 @@ public class SignupActivity extends AppCompatActivity {
         editor.putString(PASSWORD_SHARED_PREF,password);
 
         //Saving values to editor
-        editor.commit();
-        finish();
+        editor.apply();
+        //finish();
+
     }
 
     public void onSignupFailed() {
@@ -202,14 +213,27 @@ public class SignupActivity extends AppCompatActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Toast.makeText(SignupActivity.this,response,Toast.LENGTH_LONG).show();
+                        //Toast.makeText(SignupActivity.this,response,Toast.LENGTH_LONG).show();
+                        if(response.equals("Successfully Registered")){
+                            onSignupSuccess();
+                            Toast.makeText(getBaseContext(), "Successfully Signed Up ", Toast.LENGTH_LONG).show();
+                            Intent i=new Intent(SignupActivity.this,SelectMall.class);
+                            startActivity(i);
+                            finish();
+                        }
+                        else{
+                            Toast.makeText(getBaseContext(), "Account already exists", Toast.LENGTH_LONG).show();
+                            onSignupFailed();
+                        }
+
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(SignupActivity.this,error.toString(),Toast.LENGTH_LONG).show();
-                        c=1;
+                        Toast.makeText(SignupActivity.this,"Network error."+ error.toString(),Toast.LENGTH_LONG).show();
+                        //c=1;
+                        onSignupFailed();
                     }
                 }){
             @Override

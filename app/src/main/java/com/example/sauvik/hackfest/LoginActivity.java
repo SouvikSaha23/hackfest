@@ -41,7 +41,7 @@ import java.util.Map;
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
 
-    private static final String REGISTER_URL = "http://192.168.43.78/Hackfest/php_files/login.php";
+    private static final String REGISTER_URL = "http://172.16.40.204/Hackfest/php_files/login.php";
 
     public static final String KEY_EMAIL = "email";
     public static final String KEY_PASSWORD = "password";
@@ -135,86 +135,23 @@ public class LoginActivity extends AppCompatActivity {
 
                         // On complete call either onLoginSuccess or onLoginFailed
                         if(c==0) {
-
                             onLoginSuccess();
+                            progressDialog.dismiss();
+                            Toast.makeText(LoginActivity.this,"Successfully logged in.",Toast.LENGTH_LONG).show();
+                            Intent i=new Intent(LoginActivity.this,SelectMall.class);
+                            startActivity(i);
+                        }
+                        else if(c==1){
+                            onLoginFailed();
+                            progressDialog.dismiss();
+                            Toast.makeText(LoginActivity.this,"Invalid Username or Password.",Toast.LENGTH_LONG).show();
                         }
                         // onLoginFailed();
-
 
                     }
                 }, 3000);// delay for the authenticating popup box
     }
 
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_SIGNUP) {
-            if (resultCode == RESULT_OK) {
-
-                // TODO: Implement successful signup logic here
-                // By default we just finish the Activity and log them in automatically
-                //this.finish();
-
-                if (ContextCompat.checkSelfPermission(LoginActivity.this, Manifest.permission.CAMERA)
-                        != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(LoginActivity.this,
-                            new String[]{Manifest.permission.CAMERA}, CAMERA_PERMISSION);
-                } else {
-                    Toast.makeText(this," 1 Please Scan the QRCode of the mall..........",Toast.LENGTH_LONG).show();
-                    startActivityForResult(new Intent(LoginActivity.this,Qrscanner.class),1);
-                }
-
-            }
-        }
-        else{
-            final ProgressDialog loading = ProgressDialog.show(this,"Please Wait","Selecting Mall",false,false);
-            final String code = data.getData().toString().trim();
-            String url = "http://192.168.43.78/Hackfest/php_files/return_mall.php";
-            StringRequest stringRequest = new StringRequest(Request.Method.POST,url,
-                    new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-                            Toast.makeText(LoginActivity.this,response,Toast.LENGTH_LONG).show();
-                            loading.dismiss();
-                            Intent intent=new Intent(LoginActivity.this,CartActivity.class);
-                            intent.putExtra("key",response);
-                            startActivity(intent);
-                            finish();
-                        }
-                    },
-                    new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            Toast.makeText(LoginActivity.this,error.toString(),Toast.LENGTH_LONG).show();
-
-                        }
-                    }){
-                @Override
-                protected Map<String,String> getParams(){
-                    Map<String,String> params = new HashMap<String, String>();
-                    params.put("id",code);
-                    return params;
-                }
-
-            };
-
-            RequestQueue requestQueue = Volley.newRequestQueue(LoginActivity.this);
-            requestQueue.add(stringRequest);
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode,  String permissions[], int[] grantResults) {
-        switch (requestCode) {
-            case CAMERA_PERMISSION:
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    startActivityForResult(new Intent(LoginActivity.this,Qrscanner.class),1);
-                } else {
-                    Toast.makeText(this, "Please grant camera permission to use the QR Scanner", Toast.LENGTH_SHORT).show();
-                }
-                return;
-        }
-    }
 
     @Override
     public void onBackPressed() {
@@ -239,7 +176,8 @@ public class LoginActivity extends AppCompatActivity {
         editor.putString(PASSWORD_SHARED_PREF,password);
 
         //Saving values to editor
-        editor.commit();
+        editor.apply();
+        /*
         if (ContextCompat.checkSelfPermission(LoginActivity.this, Manifest.permission.CAMERA)
                 != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(LoginActivity.this,
@@ -247,12 +185,10 @@ public class LoginActivity extends AppCompatActivity {
         } else {
             Toast.makeText(LoginActivity.this," 2 Please Scan the QRCode of the mall..........",Toast.LENGTH_LONG).show();
             startActivityForResult(new Intent(LoginActivity.this,Qrscanner.class),1);
-        }
+        }*/
     }
 
     public void onLoginFailed() {
-        Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
-
         _loginButton.setEnabled(true);
     }
     //Validate function
@@ -287,14 +223,18 @@ public class LoginActivity extends AppCompatActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Toast.makeText(LoginActivity.this,response,Toast.LENGTH_LONG).show();
+                        if(!response.equals("Successfully logged in")) {
+                            c = 1;
+                           // Toast.makeText(LoginActivity.this,response+". Login Failed.",Toast.LENGTH_LONG).show();
+                        }
+
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(LoginActivity.this,error.toString(),Toast.LENGTH_LONG).show();
-                        c=1;
+                        Toast.makeText(LoginActivity.this,"Network Error. Login Failed",Toast.LENGTH_LONG).show();
+                        c=2;
                     }
                 }){
             @Override
