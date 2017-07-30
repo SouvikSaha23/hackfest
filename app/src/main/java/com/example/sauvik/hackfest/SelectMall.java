@@ -31,6 +31,7 @@ public class SelectMall extends AppCompatActivity {
     }
 
     public void ScanQr(View v){
+        
         if (ContextCompat.checkSelfPermission(SelectMall.this, Manifest.permission.CAMERA)
                 != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(SelectMall.this,
