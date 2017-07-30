@@ -41,7 +41,6 @@ public class Qrscanner extends Activity implements ZXingScannerView.ResultHandle
 
     @Override
     public void handleResult(Result rawResult) {
-
         String txt = rawResult.getText();
         Uri data = Uri.parse(txt);
         Intent result = new Intent();
