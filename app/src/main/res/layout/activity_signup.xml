@@ -46,6 +46,7 @@
                 android:hint="Email"
                 android:textColor="@color/white"/>
         </android.support.design.widget.TextInputLayout>
+        
         <!-- Mobile no.-->
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
