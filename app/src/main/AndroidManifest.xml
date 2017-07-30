@@ -35,6 +35,7 @@
             android:name=".Qrscanner"
             android:label="Scan QRCode of the mall:"
             android:theme="@style/AppTheme1" />
+        
         <activity android:name=".SelectMall"
             android:theme="@style/AppTheme1"  />
         <activity android:name=".Payment"></activity>
