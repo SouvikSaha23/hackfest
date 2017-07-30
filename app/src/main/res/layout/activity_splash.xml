@@ -23,6 +23,7 @@ android:background="@drawable/kart">
     android:layout_alignParentTop="true"
     android:layout_centerHorizontal="true"
     android:layout_marginTop="150dp"/>
+    
 <pl.droidsonroids.gif.GifTextView
     android:layout_width="100dp"
     android:layout_height="100dp"
