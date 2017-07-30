@@ -1,4 +1,4 @@
-# Shop It!
+# Shop!t
 An app that can change the experience of shopping in malls.</br>
 </br>
 We all have experienced long chekout queues at malls which sometimes costs more time than our shopping time.
