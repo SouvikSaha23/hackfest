@@ -9,7 +9,7 @@ public class details {
     private String image;
     private float price;
     public details(String name,float price,long id){
-        //super();
+        // super();
         this.id = id;
         this.name = name;
         this.price = price;
