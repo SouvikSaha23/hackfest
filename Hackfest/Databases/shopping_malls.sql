@@ -27,7 +27,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `Malls` (
-  `Id` int(11) DEFAULT NULL,
+  `Id` int(11) DEFAULT NULL, 
   `Name` text,
   `Location` text,
   `QR_Code` text,
