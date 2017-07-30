@@ -20,7 +20,6 @@ public class Splash extends AppCompatActivity {
                 } catch (Exception e) {
 
                 } finally {
-
                     Intent i = new Intent(Splash.this,LoginActivity.class);
                     startActivity(i);
                     finish();
