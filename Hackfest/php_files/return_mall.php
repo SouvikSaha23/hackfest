@@ -8,7 +8,7 @@ if($_Server['REQUEST_METHOD']='POST'){
   $r=$sql->fetchObject();
 if($r){
   $file_name= $r->php_file;
-  echo $file_name;
+  echo $file_name; // File of the selected mall
 }
 else{
   echo null;
