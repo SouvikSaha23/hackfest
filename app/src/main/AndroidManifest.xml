@@ -38,6 +38,7 @@
         <activity android:name=".SelectMall"
             android:theme="@style/AppTheme1"  />
         <activity android:name=".Payment"></activity>
+        
         <meta-data
             android:name="com.razorpay.ApiKey"
             android:value="rzp_test_njLswIXlPh2ILY" />
