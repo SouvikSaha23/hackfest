@@ -7,7 +7,7 @@
     $email= $_POST['email'];
     $pass= $_POST['password'];
     $sql->execute();
-    if($sql->fetchObject()){       //If email and password will be correct then $sql will contain at least some object
+    if($sql->fetchObject()){      //If email and password will be correct then $sql will contain at least some object
       echo "Successfully logged in";
     }
     else{
