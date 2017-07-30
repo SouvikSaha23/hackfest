@@ -180,7 +180,7 @@ public class CartActivity extends AppCompatActivity {
 
             return arg0;
         }
-
+        
         @Override
         public View getView(final int position, View convertView, ViewGroup parent) {
             if(convertView == null) {
